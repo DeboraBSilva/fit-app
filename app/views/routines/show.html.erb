@@ -1,0 +1,13 @@
+<main class="main">
+  <section>
+    <h1>Routine: <%= @routine.name %></h1>
+    <br>
+  </section>
+  <section class="section">
+  </section>
+  <button type="button" class="button button--secondary"><%= link_to "Edit", edit_routine_path(@routine.id) %></button>
+  <button type="button" class="button"><%= link_to "Destroy", routine_path(@routine), data: {
+                    method: :delete,
+                    confirm: "Are you sure?"
+                  } %></button>
+</main>
