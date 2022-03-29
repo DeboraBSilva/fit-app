@@ -1,0 +1,16 @@
+<div class="form">
+  <%= form_with model: @exercise do |form| %>
+    <div>
+      <%= form.label :description %><br>
+      <%= form.text_field :description, class: "input" %>
+    </div>
+    <div>
+      <%= form.label :intensity %><br>
+      <%= form.range_field :intensity, in: 0..10, class: "range" %>
+    </div>
+
+    <div>
+      <%= form.submit class: "button button--secondary"%>
+    </div>
+  <% end %>
+</div>

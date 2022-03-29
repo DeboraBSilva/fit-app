@@ -1,0 +1,22 @@
+<main class="main">
+  <button type="button" class="button"><%= link_to "New Exercise", new_exercise_path %></button>
+  <h1>Exercises</h1>
+  <table class="table">
+    <tr>
+      <th>Description</th>
+      <th>Intensity</th>
+    </tr>
+    <% @exercises.each do |exercise| %>
+      <tr>
+        <td>
+          <a href="/exercises/<%= exercise.id %>">
+            <%= exercise.description %>
+          </a>
+        </td>
+        <td>
+          <%= exercise.intensity %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</main>
