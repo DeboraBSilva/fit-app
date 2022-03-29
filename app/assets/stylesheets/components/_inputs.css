@@ -1,0 +1,29 @@
+.input {
+  display: inline-flex;
+  min-width: 250px;
+  height: 42px;
+  padding: 0 2em;
+  margin: 1em;
+  border: none;
+  background-color: var(--white);
+  border-radius: var(--base-border-radius);
+  font-family: inherit;
+  font-size: 0.8em;
+  font-weight: var(--weight-500);
+  outline: none;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.input:focus {
+  border: 3px solid var(--blue-light);
+}
+
+.input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.input--textarea {
+  height: auto;
+}

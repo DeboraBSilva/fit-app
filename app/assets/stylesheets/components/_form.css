@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__title {
+  color: var(--blue-light);
+}
+
+.form__entries {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
