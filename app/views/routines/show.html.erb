@@ -2,6 +2,18 @@
   <section>
     <h1>Routine: <%= @routine.name %></h1>
     <br>
+    <table class="table">
+      <tr>
+        <th><strong>Exercise description</strong></th>
+        <th><strong>Exercise intensity</strong></th>
+      </tr>
+      <% @routine.exercises.each do |exercise| %>
+        <tr>
+          <td><%= exercise.description %></td>
+          <td><%= exercise.intensity %></td>
+        </tr>
+      <% end %>
+    </table>
   </section>
   <section class="section">
   </section>

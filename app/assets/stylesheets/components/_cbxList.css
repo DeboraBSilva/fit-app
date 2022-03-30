@@ -1,0 +1,9 @@
+.cbxList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cbxList__item {
+  margin: 5px 5px;
+}

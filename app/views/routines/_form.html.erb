@@ -3,6 +3,14 @@
     <div>
       <%= form.label :name %><br>
       <%= form.text_field :name, class: "input" %>
+      <h3>Exercises</h3>
+      <div class="cbxList">
+        <%= form.collection_check_boxes(:exercise_ids, Exercise.all, :id, :description) do |e| %>
+          <%= e.label class:"cbxList__item" do %>
+            <%= e.check_box + e.text %>
+          <%end%>
+        <% end %>
+      </div>
     </div>
 
     <div>
