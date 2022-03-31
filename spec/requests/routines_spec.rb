@@ -1,35 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe "Routines", type: :request do
-  before do
-    @user = User.create!({
-      :email => 'user@test.com',
-      :password => 'password'
-      })
+  let!(:user) do
+    User.create!(email: 'user@test.com', password: 'password')
   end
 
   describe "GET /index" do
+    let!(:routine) do
+      Routine.create! name: 'routine 01'
+    end
+
     it 'returns status 200' do
       get '/routines'
       expect(response).to have_http_status(:ok)
     end
   
     it 'assigns @routines' do
-      routine = Routine.create name: 'routine 01'
       get '/routines'
       expect(assigns(:routines)).to eq([routine])
     end
   end
 
   describe 'GET /routines/:id' do
+    let!(:routine) do
+      Routine.create! name: 'routine 01'
+    end
+
     it 'returns status 200' do
-      routine = Routine.create name: 'routine 01'
       get "/routines/#{routine.id}"
       expect(response).to have_http_status(:ok)
     end
 
     it 'assigns @routine' do
-      routine = Routine.create name: 'routine 01'
       get "/routines/#{routine.id}"
       expect(assigns(:routine)).to eq(routine)
     end
@@ -37,8 +39,11 @@ RSpec.describe "Routines", type: :request do
 
   describe 'GET /new' do
     context 'user authenticated' do
+      before do
+        sign_in user
+      end
+
       it 'returns status 200' do
-        sign_in @user
         get new_routine_path
         expect(response).to have_http_status(:ok)
       end
@@ -55,7 +60,7 @@ RSpec.describe "Routines", type: :request do
   describe 'POST create' do
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
 
       it 'returns status 302' do
@@ -64,7 +69,6 @@ RSpec.describe "Routines", type: :request do
       end
 
       context 'with valid attributes' do
-        Routine.new name: 'routine 01'
         it 'creates a new routine' do
           expect do
             post '/routines', params: { routine: { name: 'routine 01' } }
@@ -78,7 +82,6 @@ RSpec.describe "Routines", type: :request do
       end
 
       context 'with invalid attributes' do
-        Routine.new 
         it 'does not save the new routine' do
           expect do
             post '/routines', params: { routine: { name: nil} }
@@ -101,10 +104,16 @@ RSpec.describe "Routines", type: :request do
   end
 
   describe 'GET edit' do
+    let!(:routine) do
+      Routine.create! name: 'routine 01'
+    end
+
     context 'user authenticated' do
+      before do
+        sign_in user
+      end
+
       it 'returns status 200' do
-        sign_in @user
-        routine = Routine.create name: 'routine 01'
         get edit_routine_path(routine.id)
         expect(response).to have_http_status(:ok)
       end
@@ -112,7 +121,6 @@ RSpec.describe "Routines", type: :request do
     
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
-        routine = Routine.create name: 'routine 01'
         get edit_routine_path(routine.id)
         expect(response).to redirect_to new_user_session_path
       end
@@ -126,7 +134,7 @@ RSpec.describe "Routines", type: :request do
 
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
 
       context 'valid attributes' do
@@ -182,7 +190,7 @@ RSpec.describe "Routines", type: :request do
 
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
 
       it 'deletes the routine' do

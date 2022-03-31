@@ -1,35 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe "Exercises", type: :request do
-  before do
-    @user = User.create!({
-      :email => 'user@test.com',
-      :password => 'password'
-      })
+  let!(:user) do
+    User.create!(email: 'user@test.com', password: 'password')
   end
 
   describe "GET /index" do
+    let!(:exercise) do
+      Exercise.create description: 'exercise 01', intensity: 5
+    end
+
     it 'returns status 200' do
       get '/exercises'
       expect(response).to have_http_status(:ok)
     end
 
     it 'assigns @exercises' do
-      exercise = Exercise.create description: 'exercise 01', intensity: 5
       get '/exercises'
       expect(assigns(:exercises)).to eq([exercise])
     end
   end
 
   describe 'GET /exercises/:id' do
+    let!(:exercise) do
+      Exercise.create description: 'exercise 01', intensity: 5
+    end
+
     it 'returns status 200' do
-      exercise = Exercise.create description: 'exercise 01', intensity: 5
       get "/exercises/#{exercise.id}"
       expect(response).to have_http_status(:ok)
     end
 
     it 'assigns @exercise' do
-      exercise = Exercise.create description: 'exercise 01', intensity: 5
       get "/exercises/#{exercise.id}"
       expect(assigns(:exercise)).to eq(exercise)
     end
@@ -37,8 +39,11 @@ RSpec.describe "Exercises", type: :request do
 
   describe 'GET /new' do
     context 'user authenticated' do
+      before do
+        sign_in user
+      end
+
       it 'returns status 200' do
-        sign_in @user
         get new_exercise_path
         expect(response).to have_http_status(:ok)
       end
@@ -55,15 +60,15 @@ RSpec.describe "Exercises", type: :request do
   describe 'POST create' do
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
+
       it 'returns status 302' do
         post '/exercises', params: { exercise: { description: 'exercise 01', intensity: 5 } }
         expect(response).to have_http_status(302)
       end
 
       context 'with valid attributes' do
-        Exercise.new description: 'exercise 01', intensity: 5
         it 'creates a new exercise' do
           expect do
             post '/exercises', params: { exercise: { description: 'exercise 01', intensity: 5 } }
@@ -77,7 +82,6 @@ RSpec.describe "Exercises", type: :request do
       end
 
       context 'with invalid attributes' do
-        Exercise.new description: 'exercise 01', intensity: 5
         it 'does not save the new exercise' do
           expect do
             post '/exercises', params: { exercise: { intensity: 5 } }
@@ -100,10 +104,16 @@ RSpec.describe "Exercises", type: :request do
   end
 
   describe 'GET edit' do
+    let!(:exercise) do
+      Exercise.create description: 'exercise 01', intensity: 5
+    end
+
     context 'user authenticated' do
+      before do
+        sign_in user
+      end
+
       it 'returns status 200' do
-        sign_in @user
-        exercise = Exercise.create description: 'exercise 01', intensity: 5
         get edit_exercise_path(exercise.id)
         expect(response).to have_http_status(:ok)
       end
@@ -111,7 +121,6 @@ RSpec.describe "Exercises", type: :request do
     
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
-        exercise = Exercise.create description: 'exercise 01', intensity: 5
         get edit_exercise_path(exercise.id)
         expect(response).to redirect_to new_user_session_path
       end
@@ -125,7 +134,7 @@ RSpec.describe "Exercises", type: :request do
 
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
 
       context 'valid attributes' do
@@ -184,7 +193,7 @@ RSpec.describe "Exercises", type: :request do
 
     context 'user authenticated' do
       before do
-        sign_in @user
+        sign_in user
       end
 
       it 'deletes the exercise' do
