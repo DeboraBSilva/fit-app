@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe "Routines", type: :request do
+RSpec.describe 'Routines', type: :request do
   let!(:user) do
     User.create!(email: 'user@test.com', password: 'password')
   end
 
-  describe "GET /index" do
+  describe 'GET /index' do
     let!(:routine) do
       Routine.create! name: 'routine 01'
     end
@@ -84,10 +84,6 @@ RSpec.describe "Routines", type: :request do
       end
 
       context 'with invalid attributes' do
-<<<<<<< HEAD
-=======
-        Routine.new
->>>>>>> Do rubocop corrections
         it 'does not save the new routine' do
           expect do
             post '/routines', params: { routine: { name: nil } }

@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe "Exercises", type: :request do
+RSpec.describe 'Exercises', type: :request do
   let!(:user) do
     User.create!(email: 'user@test.com', password: 'password')
   end
 
-  describe "GET /index" do
+  describe 'GET /index' do
     let!(:exercise) do
       Exercise.create description: 'exercise 01', intensity: 5
     end
