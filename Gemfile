@@ -56,11 +56,13 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'dotenv-rails', '~> 2.7.6'
+  gem 'pry'
   gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'letter_opener', '~> 1.8.1'
   gem 'rubocop', '~> 1.26', require: false
   gem 'web-console'
 
