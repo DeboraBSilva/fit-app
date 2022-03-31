@@ -42,6 +42,7 @@ RSpec.describe 'Routines', type: :request do
   describe 'GET /new' do
     context 'user authenticated' do
       before do
+        user.confirm
         sign_in user
       end
 
@@ -62,6 +63,7 @@ RSpec.describe 'Routines', type: :request do
   describe 'POST create' do
     context 'user authenticated' do
       before do
+        user.confirm
         sign_in user
       end
 
@@ -112,6 +114,7 @@ RSpec.describe 'Routines', type: :request do
 
     context 'user authenticated' do
       before do
+        user.confirm
         sign_in user
       end
 
@@ -136,6 +139,7 @@ RSpec.describe 'Routines', type: :request do
 
     context 'user authenticated' do
       before do
+        user.confirm
         sign_in user
       end
 
@@ -192,6 +196,7 @@ RSpec.describe 'Routines', type: :request do
 
     context 'user authenticated' do
       before do
+        user.confirm
         sign_in user
       end
 
