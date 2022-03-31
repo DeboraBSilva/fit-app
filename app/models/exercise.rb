@@ -1,5 +1,5 @@
 class Exercise < ApplicationRecord
-  has_many :exercise_routines
+  has_many :exercise_routines, dependent: :destroy
   has_many :routines, through: :exercise_routines
 
   validates :description, presence: true
