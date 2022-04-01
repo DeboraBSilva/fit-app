@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: var(--weight-500);
+  width: 40%;
+}
+
+.nav__link {
+  color: var(--black);
+}
+
+.nav__link:hover {
+  color: var(--red);
+}
