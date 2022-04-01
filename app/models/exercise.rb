@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Exercise < ApplicationRecord
   has_many :exercise_routines, dependent: :destroy
   has_many :routines, through: :exercise_routines

@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Routines", type: :request do
+RSpec.describe 'Routines', type: :request do
   let!(:user) do
     User.create!(email: 'user@test.com', password: 'password')
   end
 
-  describe "GET /index" do
+  describe 'GET /index' do
     let!(:routine) do
       Routine.create! name: 'routine 01'
     end
@@ -14,7 +16,7 @@ RSpec.describe "Routines", type: :request do
       get '/routines'
       expect(response).to have_http_status(:ok)
     end
-  
+
     it 'assigns @routines' do
       get '/routines'
       expect(assigns(:routines)).to eq([routine])
@@ -54,7 +56,7 @@ RSpec.describe "Routines", type: :request do
         get new_routine_path
         expect(response).to redirect_to new_user_session_path
       end
-    end    
+    end
   end
 
   describe 'POST create' do
@@ -84,7 +86,7 @@ RSpec.describe "Routines", type: :request do
       context 'with invalid attributes' do
         it 'does not save the new routine' do
           expect do
-            post '/routines', params: { routine: { name: nil} }
+            post '/routines', params: { routine: { name: nil } }
           end.to_not change(Routine, :count)
         end
 
@@ -118,7 +120,7 @@ RSpec.describe "Routines", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
-    
+
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
         get edit_routine_path(routine.id)
@@ -204,7 +206,7 @@ RSpec.describe "Routines", type: :request do
         expect(response).to redirect_to routines_path
       end
     end
-    
+
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
         delete routine_path(@routine)

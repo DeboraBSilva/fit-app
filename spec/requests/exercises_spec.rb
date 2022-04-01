@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Exercises", type: :request do
+RSpec.describe 'Exercises', type: :request do
   let!(:user) do
     User.create!(email: 'user@test.com', password: 'password')
   end
 
-  describe "GET /index" do
+  describe 'GET /index' do
     let!(:exercise) do
       Exercise.create description: 'exercise 01', intensity: 5
     end
@@ -54,7 +56,7 @@ RSpec.describe "Exercises", type: :request do
         get new_exercise_path
         expect(response).to redirect_to new_user_session_path
       end
-    end  
+    end
   end
 
   describe 'POST create' do
@@ -118,7 +120,7 @@ RSpec.describe "Exercises", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
-    
+
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
         get edit_exercise_path(exercise.id)
@@ -207,7 +209,7 @@ RSpec.describe "Exercises", type: :request do
         expect(response).to redirect_to exercises_path
       end
     end
-      
+
     context 'user not authenticated' do
       it 'redirects to user/sign_in' do
         delete exercise_path(@exercise)
