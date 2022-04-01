@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Exercises', type: :request do
   let!(:user) do
-    User.create!(email: 'user@test.com', password: 'password')
+    User.create!(email: 'user@test.com', password: 'password').tap(&:confirm)
   end
 
   describe 'GET /index' do
@@ -42,7 +42,6 @@ RSpec.describe 'Exercises', type: :request do
   describe 'GET /new' do
     context 'user authenticated' do
       before do
-        user.confirm
         sign_in user
       end
 
@@ -63,7 +62,6 @@ RSpec.describe 'Exercises', type: :request do
   describe 'POST create' do
     context 'user authenticated' do
       before do
-        user.confirm
         sign_in user
       end
 
@@ -114,7 +112,6 @@ RSpec.describe 'Exercises', type: :request do
 
     context 'user authenticated' do
       before do
-        user.confirm
         sign_in user
       end
 
@@ -139,7 +136,6 @@ RSpec.describe 'Exercises', type: :request do
 
     context 'user authenticated' do
       before do
-        user.confirm
         sign_in user
       end
 
@@ -199,7 +195,6 @@ RSpec.describe 'Exercises', type: :request do
 
     context 'user authenticated' do
       before do
-        user.confirm
         sign_in user
       end
 
