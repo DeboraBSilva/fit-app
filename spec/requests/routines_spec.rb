@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Routines', type: :request do
   let!(:user) do
-    User.create!(email: 'user@test.com', password: 'password')
+    User.create!(email: 'user@test.com', password: 'password').tap(&:confirm)
   end
 
   describe 'GET /index' do
